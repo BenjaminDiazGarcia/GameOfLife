@@ -3,10 +3,12 @@
 #include <iomanip>
 #include <vector>
 #include <fstream>
-#include <sstream>
 
 // The "real" size is (N-2)*(N-2)
 const int N = 42;
+
+// Time in microseconds (1 second = 1000000 microseconds)
+const int Time = 250000;
 
 using namespace std;
 
@@ -60,7 +62,7 @@ int main() {
             determineCurrentState(board);
             printBoard(board);
             cout << "\033[2J";
-            usleep(400000);
+            usleep(Time);
         }
         
     } else {
