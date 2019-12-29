@@ -6,7 +6,7 @@
 #include <sstream>
 
 // The "real" size is (N-2)*(N-2)
-const int N = 27;
+const int N = 42;
 
 using namespace std;
 
@@ -83,10 +83,15 @@ bool** initialize() {
 void printBoard(bool** currentBoard) {
 	for (int i = 1; i < N-1; ++i) {
 		for (int j = 1; j < N-1; ++j) {
-			cout << setw(3) << currentBoard[i][j] << " ";
+            if (currentBoard[i][j]){
+                cout << setw(3) << "\x1b[47m   \x1b[0m";
+            } else {
+                cout << setw(3) << "\x1b[40m   \x1b[0m";
+            }
 		}
 		cout << endl;
 	}
+    cout << "\n\nPress Ctrl + C to exit" << endl;
 }
 
 void deleteAll(bool** currentBoard) {
