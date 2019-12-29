@@ -1,7 +1,9 @@
 #include <iostream>
 #include <unistd.h>
 #include <iomanip>
+#include <vector>
 #include <fstream>
+#include <sstream>
 
 // The "real" size is (N-2)*(N-2)
 const int N = 27;
@@ -138,6 +140,7 @@ void determineCurrentState(bool** currentBoard) {
 bool** readFile(){
     auto board = initialize();
     string fileName;
+    char separador = ' ';
     Start:
     cout << "Enter a valid file name: ";
     cin >> fileName;
@@ -146,9 +149,32 @@ bool** readFile(){
         goto Start;
     
     string line;
-    getline(check, line);
+    string sline;
     
-    cout << line << endl;
+    getline(check, line);
+    sline = line;
+    
+    int cells = stoi(sline);
+    
+    for (int i = 0; i < cells; ++i) {
+        getline(check, line);
+        int x = 0;
+        int y = 0;
+        string value;
+        int value_;
+        vector<int> coordinates;
+        
+        for (size_t p = 0, q = 0, j = 0; j < 2; p = q, j++) {
+            value = line.substr(p + (p != 0), (q = line.find(separador, p + 1)) - p - (p != 0));
+            value_ = stoi(value);
+            coordinates.push_back(value_);
+        }
+        
+        x = coordinates[0];
+        y = coordinates[1];
+        
+        board[y+1][x+1] = true;
+    }
     
     return board;
 }
