@@ -20,12 +20,15 @@ bool** readFile();
 int main() {
 	unsigned cells = 0;
     char ans;
+    char c;
     bool** board = nullptr;
     int n = 0;
     cout << "Do you wanna read a file? (y/n): ";
     cin >> ans;
     
-    if (ans == 'y'){
+    c = static_cast<char>(tolower(static_cast<unsigned char>(ans)));
+    
+    if (c == 'y'){
         board = readFile();
         printBoard(board);
     } else {
@@ -48,15 +51,16 @@ int main() {
     do {
         cout << "This is the initial state. Do you wanna start? (y/n)" << endl;
         cin >> check;
-    } while (check != 'y' && check != 'n');
+        c = static_cast<char>(tolower(static_cast<unsigned char>(check)));
+    } while (c != 'y' && c != 'n');
     
-    if (check == 'y'){
+    if (c == 'y'){
         
         while (true) {
             determineCurrentState(board);
             printBoard(board);
             cout << "\033[2J";
-            usleep(200000);
+            usleep(400000);
         }
         
     } else {
@@ -84,9 +88,9 @@ void printBoard(bool** currentBoard) {
 	for (int i = 1; i < N-1; ++i) {
 		for (int j = 1; j < N-1; ++j) {
             if (currentBoard[i][j]){
-                cout << setw(3) << "\x1b[47m   \x1b[0m";
+                cout << setw(1) << "\x1b[47m   \x1b[0m";
             } else {
-                cout << setw(3) << "\x1b[40m   \x1b[0m";
+                cout << setw(1) << "\x1b[40m   \x1b[0m";
             }
 		}
 		cout << endl;
